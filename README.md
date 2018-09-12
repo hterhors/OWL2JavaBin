@@ -76,10 +76,13 @@ Examples:
 
 4)  Artificial classes are generated for Datatype properties in order to make them reference-able. Each generated datatype property has a field that stores the exact textmention and a field that stores the interpreted value of the textmention.   
 
-5)  After conversion into JavaClasses we can instantiate ontology classes by simply using java mechanism. Creating a SoccerPlayer as defined by the SoccerPlayerOntology might look like this: Exemplary filled with data from: https://en.wikipedia.org/wiki/Greig_Young 
+5)  After conversion into JavaClasses we can instantiate ontology classes by simply using java mechanism. Creating a SoccerPlayer as defined by the SoccerPlayerOntology might look like this: 
 
 <code>new HerbieWilliams(randomAnnotationID, "Herbert John Williams, Jr.").setBirthYear(new BirthYear("1940"))
 				.setPosition(new InsideForward()).addBirthPlace(new Swansea()).addTeam(new WalesNationalFootballTeam());</code>
+
+Exemplary filled with data from: https://en.wikipedia.org/wiki/Herbie_Williams 
+
 
 **NOTE**
 If the created instance should be linked to the text, one may want to use setter for character onset and offset.
