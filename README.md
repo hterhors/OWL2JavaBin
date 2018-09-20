@@ -50,9 +50,9 @@ Every ontology needs to follow the following rules, examples taken from the Socc
           <rdfs:range rdf:resource="http://psink.de/dbpedia/BirthPlace" />
         </owl:ObjectProperty>
 
-7)  Properties are inherited by all super classes through the full hierarchy:
+7)  Properties are inherited by all super classes through the full hierarchy.
  
-8) In general, if an ontological class does not have an properties or sub classes it should be declared as a owl:NamedIndividual:
+8) In general, if an ontological class does not have any properties or sub classes it should be declared as a owl:NamedIndividual:
 
             <owl:NamedIndividual rdf:about="http://psink.de/dbpedia/Turin"><rdf:type rdf:resource="http://psink.de/dbpedia/BirthPlace"/></owl:NamedIndividual>
 
@@ -63,20 +63,20 @@ The generation of java classes follows the following rules:
 1)  SubClass dependencies are expressed as interfaces to allow multiple sub classes (java extends). 
 That means, for each specified class in the ontology an instantiation class is generated and a directly linked interface.
 
-2)  The class naming follows the following rule: Ontology class names are converted into CamelCase,
-special character (regExp: \W) are omitted. If an ontology class name begins with a number an underscore (\_) is used as prefix. Corresponding interfaces have the prefix *I*.
+2)  The class naming follows the rule: Ontology class names are converted into CamelCase,
+special characters (regExp: \W) are omitted. If an ontology class name begins with a number an underscore (\_) is used as prefix. Corresponding interfaces have the prefix *I*.
 
 Examples: 
 
-2.1)  Defender (association football) --> DefenderAssociationFootball --> IDefenderAssociationFootball
+2.1)  Class name: "Defender (association football)" --> DefenderAssociationFootball --> IDefenderAssociationFootball
 
-2.2)  4th-Rule of being: cool --> \_4thRuleOfBeingCool --> I\_4thRuleOfBeingCool
+2.2)  Class name: "4th-Rule of being cool" --> \_4thRuleOfBeingCool --> I\_4thRuleOfBeingCool
 
 3)  Every generated class is subclass of the super root class IOBIEThing that can be found in the OBIECore project. Each class implements various getter and setter (Builder Style) and a method that converts the class into an RDF-readable format (N-triples)
 
 4)  Artificial classes are generated for Datatype properties in order to make them reference-able. Each generated datatype property has a field that stores the exact textmention and a field that stores the interpreted value of the textmention.   
 
-5)  After conversion into JavaClasses we can instantiate ontology classes by simply using java mechanism. Creating a SoccerPlayer as defined by the SoccerPlayerOntology might look like this: 
+5)  After conversion into Java classes we can simply instantiate ontology classes. Creating a SoccerPlayer as defined by the SoccerPlayerOntology might look like this: 
 
 <code>new HerbieWilliams(randomAnnotationID, "Herbert John Williams, Jr.").setBirthYear(new BirthYear("1940"))
 				.setPosition(new InsideForward()).addBirthPlace(new Swansea()).addTeam(new WalesNationalFootballTeam());</code>
@@ -88,14 +88,14 @@ Exemplary filled with data from: https://en.wikipedia.org/wiki/Herbie_Williams
 If the created instance should be linked to the text, one may want to use setter for character onset and offset.
 <code>new BirthYear("1940").setCharacterOnset(45).setChacterOffset(49)</code>
 
-TIP:
-**The OBIE Machine Learning FrameWork provides a simple regular expression Named Entity Recognition and Linking tool that generates regular expression based on the java class name. For that it is mandatory that class names are chosen meaning full. **
+
+**Advice: The OBIE Machine Learning FrameWork provides a simple Named Entity Recognition and Linking tool based on regular expressions. Regular expressions are generated from the Java class name. In order for this to work, class names must be chosen meaningfully: E.g. "HerbieWilliams" instead of "SocPlaHW" **
 
 ##################################################
 Ontology Builder Environment:
 
 
-In order to use this tool, one needs to specify an OntologyBuilderEnvironment that contains various parameters. 
+In order to use the OWL2JavaBin-tool, one needs to specify an OntologyBuilderEnvironment that contains various parameters. 
 Here you can specify additional prefixes and properties (axioms)  that should be read while creating java classes. 
 
 A common example would be: rdfs:comment, rdfs:description, rdfs:label etc.
@@ -118,8 +118,8 @@ would filter all classes that do not have a rdfs:label specified in the ontology
 
 **LIMITATIONS**
 
-In the current version of this tool every class individual and instance that is part of the ontology is converted into java class binaries. Which makes this version not suitable for ontologies with many classes (I tested it with approx. 5-6k classes which needed 4GB permsize of my IDE, Eclipse Photon for building it)
+In the current version of this tool, every class, individual and instance that is part of the ontology is converted into a single Java class. That makes this version not suitable for ontologies with to many classes (I tested it with approx. 5-6k classes which needed 4GB permsize of my IDE, Eclipse-Photon for building it).
 
-The number of classes can be obviously reduced by redesigning the ontology. For instance one can change some properties from object type to datatype. However this has other implications that will slow down th machine learning speed. For more details about this see OBIEMachineLearningFrameWork project.
+The number of classes can be reduced by redesigning the ontology, if possible. For instance change some properties from object type to datatype. This however has some other implications that will slow down the performance. For more details about this see OBIEMachineLearningFrameWork project.
 
 
