@@ -5,7 +5,7 @@
 	<groupId>de.uni.bielefeld.sc.hterhors.psink.obie</groupId>
 	<artifactId>OWL2JavaBin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<dependencies>
 
@@ -57,7 +57,7 @@
 			<artifactId>opencsv</artifactId>
 			<version>3.8</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>de.uni.bielefeld.sc.hterhors.psink.obie</groupId>
 			<artifactId>OBIECore</artifactId>
@@ -67,7 +67,6 @@
 
 	</dependencies>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
