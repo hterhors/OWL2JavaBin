@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOBIEIndividual;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.IndividualFactory;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAnnotation;
@@ -286,7 +288,9 @@ public class JavaClass implements Comparable<JavaClass> {
 		builder.append("*/");
 		builder.append("\n");
 
+		boolean isDatatypeProperty = false;
 		for (JavaAnnotation annotation : annotations) {
+			isDatatypeProperty |= annotation.annotation == EAnnotation.DATA_TYPE_ANNOTATION;
 			builder.append("\n");
 			builder.append("@");
 			builder.append(annotation.annotation.annotationClassName);
@@ -336,6 +340,33 @@ public class JavaClass implements Comparable<JavaClass> {
 
 		builder.append("{\n");
 		builder.append("\n");
+
+		/*
+		 * TODO: insert
+		 */
+
+		if(!isDatatypeProperty) {
+			
+		builder.append("final public static " + IndividualFactory.class.getSimpleName() + "<" + className
+				+ "Individual> individualFactory = new " + IndividualFactory.class.getSimpleName() + "<>();\n");
+		builder.append("final public static Class<? extends " + AbstractOBIEIndividual.class.getSimpleName()
+				+ "> individualClassType = " + className + "Individual.class;\n");
+
+		builder.append("static class " + className + "Individual extends "
+				+ AbstractOBIEIndividual.class.getSimpleName() + " {\n" + "\n" + "		public " + className
+				+ "Individual(String namespace, String name) {\n" + "			super(namespace, name);\n" + "		}\n"
+				+ "\n" + "		@Override\n" + "		public String toString() {\n" + "			return \""
+				+ className + "Individual [name=\" + name + \", nameSpace=\" + nameSpace + \"]\";\n" + "		}\n"
+				+ "\n" + "	}\n" + "");
+
+		builder.append("	public " + IndividualFactory.class.getSimpleName() + "<" + className
+				+ "Individual> getIndividualFactory() {\n" + "		return individualFactory;\n" + "	}\n" + "\n"
+				+ "	public final " + className + "Individual individual;");
+
+		builder.append("\n" + "	@Override\n" + "	public AbstractOBIEIndividual getIndividual() {\n"
+				+ "		return individual;\n" + "	}");
+
+		}
 
 		List<JavaField> fs = new ArrayList<>(fields);
 		Collections.sort(fs);

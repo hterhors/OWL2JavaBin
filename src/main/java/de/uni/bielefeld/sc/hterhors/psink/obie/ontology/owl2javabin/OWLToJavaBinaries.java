@@ -21,7 +21,9 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOntologyBuilderEnvironment;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOBIEIndividual;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOntologyEnvironment;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.IndividualFactory;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.AssignableSubClasses;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.AssignableSubInterfaces;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DatatypeProperty;
@@ -63,7 +65,7 @@ public class OWLToJavaBinaries {
 	 */
 	final private static String QUDT_QUANTITY = "http://data.nasa.gov/qudt/owl/qudt#Quantity";
 
-	private final AbstractOntologyBuilderEnvironment environment;
+	private final AbstractOntologyEnvironment environment;
 	private final static String classPackageName = "classes";
 	private final static String interfacePackageName = "interfaces";
 	private static final String JAVA_CLASS_SUFFIX = ".java";
@@ -93,7 +95,7 @@ public class OWLToJavaBinaries {
 	private final ConstructorBuilder constructorBuilder;
 	private final AnnotationBuilder annotationBuilder;
 
-	public OWLToJavaBinaries(AbstractOntologyBuilderEnvironment environment) {
+	public OWLToJavaBinaries(AbstractOntologyEnvironment environment) {
 		this.environment = environment;
 
 		this.owlDataReader = new OWLReader(this.environment.getOwlClassFilter(),
@@ -143,15 +145,19 @@ public class OWLToJavaBinaries {
 		imports.add(SuperRootClasses.class.getTypeName());
 		imports.add(TextMention.class.getTypeName());
 		imports.add(Model.class.getTypeName());
+
+		imports.add(IndividualFactory.class.getTypeName());
+		imports.add(AbstractOBIEIndividual.class.getTypeName());
+
 		methods.add(JavaMethod.methods.get("get" + EField.ONTOLOGY_NAME.methodName).getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("get" + EField.ANNOTATION_ID_FIELD.methodName).getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("getRDFModel").getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("isEmpty").getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("get" + EField.TEXT_MENTION.methodName).getInterfaceForMethod());
-		methods.add(JavaMethod.methods.get("get" + EField.CHARACTER_OFFSET.methodName).getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("get" + EField.CHARACTER_ONSET.methodName).getInterfaceForMethod());
-		methods.add(JavaMethod.methods.get("set" + EField.CHARACTER_OFFSET.methodName).getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("set" + EField.CHARACTER_ONSET.methodName).getInterfaceForMethod());
+		methods.add(JavaMethod.methods.get("get" + EField.CHARACTER_OFFSET.methodName).getInterfaceForMethod());
+//		methods.add(JavaMethod.methods.get("set" + EField.CHARACTER_OFFSET.methodName).getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("getResourceName").getInterfaceForMethod());
 
 		final String additionalContent = " public static String " + EField.RDF_MODEL_NAMESPACE.variableName + " = \""
@@ -235,6 +241,8 @@ public class OWLToJavaBinaries {
 		imports.add(TextMention.class.getTypeName());
 		imports.add(IOBIEThing.class.getTypeName());
 		imports.add(Model.class.getTypeName());
+		imports.add(IndividualFactory.class.getTypeName());
+		imports.add(AbstractOBIEIndividual.class.getTypeName());
 		imports.add(Resource.class.getTypeName());
 		imports.add(ModelFactory.class.getTypeName());
 		imports.add(HashMap.class.getTypeName());
@@ -267,9 +275,9 @@ public class OWLToJavaBinaries {
 		fields.add(fieldBuilder.generateOntologyNameField(dataClass.namespace + dataClass.ontologyClassName));
 		fields.addAll(fieldBuilder.generateAnnotationOnAndOffset());
 
-		constructors.add(constructorBuilder.generateFinalFieldsConstructor(className, fields));
-		constructors.add(constructorBuilder.emptyConstructor(className, fields));
-		constructors.add(constructorBuilder.cloneConstructor(className, fields));
+		constructors.add(constructorBuilder.generateFinalFieldsConstructor(className, fields, isDatatypeClass));
+		constructors.add(constructorBuilder.emptyConstructor(className, fields, isDatatypeClass));
+		constructors.add(constructorBuilder.cloneConstructor(className, fields, isDatatypeClass));
 
 		if (isDatatypeClass)
 			constructors.add(constructorBuilder.semanticValueConstructor(className, fields));
@@ -342,7 +350,11 @@ public class OWLToJavaBinaries {
 		imports.add(Collection.class.getTypeName());
 //		imports.add(Collections2.class.getTypeName());
 		imports.add(Collectors.class.getTypeName());
-		imports.add(IntStream.class.getTypeName());
+
+		imports.add(IndividualFactory.class.getTypeName());
+		imports.add(AbstractOBIEIndividual.class.getTypeName());
+
+//		imports.add(IntStream.class.getTypeName());
 		imports.add(AssignableSubClasses.class.getTypeName());
 		imports.add(AssignableSubInterfaces.class.getTypeName());
 		imports.add(DatatypeProperty.class.getTypeName());
@@ -473,6 +485,9 @@ public class OWLToJavaBinaries {
 		final Set<JavaClass> classes = new HashSet<>();
 		for (OntologyClass dataClass : owlDataReader.classes) {
 
+			if (dataClass.isNamedIndividual)
+				continue;
+
 			final JavaClass c = buildClass(dataClass);
 
 			if (c != null)
@@ -510,6 +525,9 @@ public class OWLToJavaBinaries {
 
 		for (OntologyClass interfaceName : owlDataReader.classes) {
 			final JavaInterface i = buildInterface(interfaceName);
+
+			if (interfaceName.isNamedIndividual)
+				continue;
 
 			if (i != null)
 				interfaces.add(i);

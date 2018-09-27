@@ -175,21 +175,25 @@ public class ClassMethodBuilder {
 
 		List<JavaMethod> methods = new ArrayList<>();
 
-		List<JavaMethodParameter> offsetArgs = new ArrayList<>();
-		offsetArgs.add(new JavaMethodParameter(Integer.class.getSimpleName(), "offset"));
-
-		methods.add(new OntologyMethodBuilder().setAccessType(EAccessType.PUBLIC).setArguments(offsetArgs)
-				.addAnnotation(annotationBuilder.buildOverrideAnnotation())
-				.setMethodBody(new OntologyMethodBody("this." + EField.CHARACTER_OFFSET.variableName + " = offset;"))
-				.setMethodName("set" + EField.CHARACTER_OFFSET.methodName).setMethodType(EMethodType.SETTER).build());
+//		List<JavaMethodParameter> offsetArgs = new ArrayList<>();
+//		offsetArgs.add(new JavaMethodParameter(Integer.class.getSimpleName(), "offset"));
+//
+//		methods.add(new OntologyMethodBuilder().setAccessType(EAccessType.PRIVATE).setArguments(offsetArgs)
+//				.addAnnotation(annotationBuilder.buildOverrideAnnotation())
+//				.setMethodBody(new OntologyMethodBody("this." + EField.CHARACTER_OFFSET.variableName + " = offset;"))
+//				.setMethodName("set" + EField.CHARACTER_OFFSET.methodName).setMethodType(EMethodType.SETTER).build());
 
 		List<JavaMethodParameter> onsetArgs = new ArrayList<>();
 		onsetArgs.add(new JavaMethodParameter(Integer.class.getSimpleName(), "onset"));
 
-		methods.add(new OntologyMethodBuilder().setAccessType(EAccessType.PUBLIC)
-				.addAnnotation(annotationBuilder.buildOverrideAnnotation()).setArguments(onsetArgs)
-				.setMethodBody(new OntologyMethodBody("this." + EField.CHARACTER_ONSET.variableName + " = onset;"))
-				.setMethodName("set" + EField.CHARACTER_ONSET.methodName).setMethodType(EMethodType.SETTER).build());
+		methods.add(
+				new OntologyMethodBuilder().setAccessType(EAccessType.PUBLIC)
+						.addAnnotation(annotationBuilder.buildOverrideAnnotation()).setArguments(onsetArgs)
+						.setMethodBody(new OntologyMethodBody("this." + EField.CHARACTER_ONSET.variableName
+								+ " = onset;\n this.characterOffset = onset + " + EField.TEXT_MENTION.variableName
+								+ ".length();"))
+						.setMethodName("set" + EField.CHARACTER_ONSET.methodName).setMethodType(EMethodType.SETTER)
+						.build());
 
 		return methods;
 

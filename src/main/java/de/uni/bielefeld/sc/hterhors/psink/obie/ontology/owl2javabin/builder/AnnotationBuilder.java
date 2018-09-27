@@ -38,8 +38,9 @@ public class AnnotationBuilder {
 	}
 
 	public JavaAnnotation buildAssignableSubClassesAnnotation(Set<OntologyClass> assignableSubClasses) {
-		return new JavaAnnotation.Builder().setAnnotation(EAnnotation.ASSIGNABLE_SUB_CLASSES)
-				.setParameter(assignableSubClasses.stream().map(sc -> sc.javaClassName).collect(Collectors.toSet()))
+		return new JavaAnnotation.Builder()
+				.setAnnotation(EAnnotation.ASSIGNABLE_SUB_CLASSES).setParameter(assignableSubClasses.stream()
+						.filter(sc -> !sc.isNamedIndividual).map(sc -> sc.javaClassName).collect(Collectors.toSet()))
 				.build();
 	}
 
@@ -69,8 +70,8 @@ public class AnnotationBuilder {
 
 	public JavaAnnotation buildAssignableInterfacesAnnotation(Set<OntologyClass> assignableSubInterfaces) {
 		return new JavaAnnotation.Builder().setAnnotation(EAnnotation.ASSIGNABLE_SUB_INTERFACES)
-				.setParameter(
-						assignableSubInterfaces.stream().map(sc -> sc.javaInterfaceName).collect(Collectors.toSet()))
+				.setParameter(assignableSubInterfaces.stream().filter(sc -> !sc.isNamedIndividual)
+						.map(sc -> sc.javaInterfaceName).collect(Collectors.toSet()))
 				.build();
 	}
 }

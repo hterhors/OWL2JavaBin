@@ -18,14 +18,11 @@ public class JavaConstructor {
 	final private boolean initializeNull;
 	final private boolean initializeScioValueOnly;
 	final private boolean buildCloneConstructor;
+	final private boolean isDatatype;
 
 	public JavaConstructor(boolean initializeNull, boolean initializeScioValueOnly, EAccessType accessType,
-			String className, Set<JavaField> fields) {
-		this(initializeNull, initializeScioValueOnly, accessType, className, fields, false);
-	}
-
-	public JavaConstructor(boolean initializeNull, boolean initializeScioValueOnly, EAccessType accessType,
-			String className, Set<JavaField> fields, boolean buildCloneConstructor) {
+			String className, Set<JavaField> fields, boolean buildCloneConstructor, boolean isDatatype) {
+		this.isDatatype = isDatatype;
 		this.accessType = accessType;
 		this.className = className;
 		this.initializeNull = initializeNull;
@@ -39,37 +36,27 @@ public class JavaConstructor {
 		this.buildCloneConstructor = buildCloneConstructor;
 	}
 
-	public Set<JavaField> getFields() {
-		return fields;
-	}
-
-	public boolean isInitializeNull() {
-		return initializeNull;
-	}
-
-	public List<String> getImports() {
-		return imports;
-	}
-
-	public EAccessType getAccessType() {
-		return accessType;
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accessType == null) ? 0 : accessType.hashCode());
+		result = prime * result + (buildCloneConstructor ? 1231 : 1237);
 		result = prime * result + ((className == null) ? 0 : className.hashCode());
 		result = prime * result + ((fields == null) ? 0 : fields.hashCode());
 		result = prime * result + ((imports == null) ? 0 : imports.hashCode());
 		result = prime * result + (initializeNull ? 1231 : 1237);
 		result = prime * result + (initializeScioValueOnly ? 1231 : 1237);
+		result = prime * result + (isDatatype ? 1231 : 1237);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "JavaConstructor [imports=" + imports + ", accessType=" + accessType + ", className=" + className
+				+ ", fields=" + fields + ", initializeNull=" + initializeNull + ", initializeScioValueOnly="
+				+ initializeScioValueOnly + ", buildCloneConstructor=" + buildCloneConstructor + ", isDatatype="
+				+ isDatatype + "]";
 	}
 
 	@Override
@@ -82,6 +69,8 @@ public class JavaConstructor {
 			return false;
 		JavaConstructor other = (JavaConstructor) obj;
 		if (accessType != other.accessType)
+			return false;
+		if (buildCloneConstructor != other.buildCloneConstructor)
 			return false;
 		if (className == null) {
 			if (other.className != null)
@@ -102,14 +91,9 @@ public class JavaConstructor {
 			return false;
 		if (initializeScioValueOnly != other.initializeScioValueOnly)
 			return false;
+		if (isDatatype != other.isDatatype)
+			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Constructor [imports=" + imports + ", accessType=" + accessType + ", className=" + className
-				+ ", fields=" + fields + ", initializeNull=" + initializeNull + ", initializeScioValueOnly="
-				+ initializeScioValueOnly + "]";
 	}
 
 	public StringBuilder toJavaString() {
@@ -127,6 +111,9 @@ public class JavaConstructor {
 		if (!buildCloneConstructor) {
 
 			if (!initializeNull) {
+				if (!isDatatype)
+					builder.append("String individualURI, ");
+
 				for (int i = 0; i < fs.size(); i++) {
 					builder.append(fs.get(i).getTypeName());
 					builder.append(" ");
@@ -147,12 +134,17 @@ public class JavaConstructor {
 				builder.append(String.class.getSimpleName());
 				builder.append(" ");
 				builder.append(EField.DATATYPE_PROPERTY_VALUE_ANNOTATION_NAME.variableName);
+
 				// }
 				// }
 			}
 
 			builder.append("){\n");
 			if (!initializeNull) {
+				if (!isDatatype)
+					builder.append("this.individual = \n" + "				" + className
+							+ ".individualFactory.getIndividualByURI(individualURI);\n");
+
 				for (int i = 0; i < fs.size(); i++) {
 					builder.append("this.");
 					builder.append(fs.get(i).getClassVariableName());
@@ -162,6 +154,8 @@ public class JavaConstructor {
 					builder.append("\n");
 				}
 			} else {
+				if (!isDatatype)
+					builder.append("this.individual = null;\n");
 				for (int i = 0; i < fs.size(); i++) {
 					builder.append("this.");
 					builder.append(fs.get(i).getClassVariableName());
@@ -191,6 +185,8 @@ public class JavaConstructor {
 		builder.append(
 				")throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,"
 						+ "NoSuchMethodException, SecurityException{\n");
+		if (!isDatatype)
+			builder.append("this.individual = " + JavaClassNamingTools.getVariableName(className) + ".individual;\n");
 		for (int i = 0; i < fs.size(); i++) {
 			if (fs.get(i).getTypeName().equals("Integer") || fs.get(i).getTypeName().equals("String")
 					|| fs.get(i).getTypeName().equals("String")) {
