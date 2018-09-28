@@ -35,10 +35,10 @@ import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.Ontolog
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.RelationTypeCollection;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.SuperRootClasses;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.TextMention;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IDataType;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IDatatype;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IOBIEThing;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.owlreader.OWLReader;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.owlreader.container.OntologyClass;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.OWLReader;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.AnnotationBuilder;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.ClassMethodBuilder;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.ConstructorBuilder;
@@ -98,9 +98,7 @@ public class OWLToJavaBinaries {
 	public OWLToJavaBinaries(AbstractOntologyEnvironment environment) {
 		this.environment = environment;
 
-		this.owlDataReader = new OWLReader(this.environment.getOwlClassFilter(),
-				this.environment.getAdditionalPropertyNames(), this.environment.getAdditionalPrefixes(),
-				this.environment.getOntologyFile());
+		this.owlDataReader = new OWLReader(this.environment);
 
 		this.classesSrcLocation = environment.getOntologySourceLocation() + classPackageName;
 		this.interfacesSrcLocation = environment.getOntologySourceLocation() + interfacePackageName;
@@ -256,7 +254,7 @@ public class OWLToJavaBinaries {
 		imports.add(InvocationTargetException.class.getTypeName());
 		imports.add(NoSuchMethodException.class.getTypeName());
 		imports.add(SecurityException.class.getTypeName());
-		imports.add(IDataType.class.getTypeName());
+		imports.add(IDatatype.class.getTypeName());
 		implementations.add(dataClass.javaInterfaceName);
 
 		methods.addAll(methodBuilder.generateGetters(dataClass));
@@ -345,7 +343,7 @@ public class OWLToJavaBinaries {
 		Set<JavaAnnotation> annotations = new HashSet<>();
 
 		imports.add(IOBIEThing.class.getTypeName());
-		imports.add(IDataType.class.getTypeName());
+		imports.add(IDatatype.class.getTypeName());
 		imports.add(List.class.getTypeName());
 		imports.add(Collection.class.getTypeName());
 //		imports.add(Collections2.class.getTypeName());
@@ -372,7 +370,7 @@ public class OWLToJavaBinaries {
 
 		if (isDatatypeClass) {
 			annotations.add(annotationBuilder.buildDataTypePropertyValueAnnotation());
-			extendsClassNames.add(IDataType.class.getSimpleName());
+			extendsClassNames.add(IDatatype.class.getSimpleName());
 		}
 
 		if (!ontologyClass.isArtificialUnionOfRangeClass) {

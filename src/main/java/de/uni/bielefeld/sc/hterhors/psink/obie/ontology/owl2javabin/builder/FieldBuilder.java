@@ -8,10 +8,10 @@ import java.util.Set;
 
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.OntologyFieldNames;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IOBIEThing;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.ECardinalityType;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologySlotData;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.owlreader.ECardinalityType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.owlreader.container.OntologyClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.owlreader.container.OntologySlotData;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EField;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaField;

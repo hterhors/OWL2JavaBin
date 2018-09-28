@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.ECardinalityType;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.owlreader.ECardinalityType;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
 import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAnnotation;
 

@@ -345,26 +345,28 @@ public class JavaClass implements Comparable<JavaClass> {
 		 * TODO: insert
 		 */
 
-		if(!isDatatypeProperty) {
-			
-		builder.append("final public static " + IndividualFactory.class.getSimpleName() + "<" + className
-				+ "Individual> individualFactory = new " + IndividualFactory.class.getSimpleName() + "<>();\n");
-		builder.append("final public static Class<? extends " + AbstractOBIEIndividual.class.getSimpleName()
-				+ "> individualClassType = " + className + "Individual.class;\n");
+		if (!isDatatypeProperty) {
 
-		builder.append("static class " + className + "Individual extends "
-				+ AbstractOBIEIndividual.class.getSimpleName() + " {\n" + "\n" + "		public " + className
-				+ "Individual(String namespace, String name) {\n" + "			super(namespace, name);\n" + "		}\n"
-				+ "\n" + "		@Override\n" + "		public String toString() {\n" + "			return \""
-				+ className + "Individual [name=\" + name + \", nameSpace=\" + nameSpace + \"]\";\n" + "		}\n"
-				+ "\n" + "	}\n" + "");
+			builder.append("final public static " + IndividualFactory.class.getSimpleName() + "<" + className
+					+ "Individual> individualFactory = new " + IndividualFactory.class.getSimpleName() + "<>();\n");
+			builder.append("final public static Class<? extends " + AbstractOBIEIndividual.class.getSimpleName()
+					+ "> individualClassType = " + className + "Individual.class;\n");
 
-		builder.append("	public " + IndividualFactory.class.getSimpleName() + "<" + className
-				+ "Individual> getIndividualFactory() {\n" + "		return individualFactory;\n" + "	}\n" + "\n"
-				+ "	public final " + className + "Individual individual;");
+			builder.append(
+					"static class " + className + "Individual extends " + AbstractOBIEIndividual.class.getSimpleName()
+							+ " {\n" + "\n" + "" + "	private static final long serialVersionUID = 1L;"
+							+ "		public " + className + "Individual(String namespace, String name) {\n"
+							+ "			super(namespace, name);\n" + "		}\n" + "\n" + "		@Override\n"
+							+ "		public String toString() {\n" + "			return \"" + className
+							+ "Individual [name=\" + name + \", nameSpace=\" + nameSpace + \"]\";\n" + "		}\n"
+							+ "\n" + "	}\n" + "");
 
-		builder.append("\n" + "	@Override\n" + "	public AbstractOBIEIndividual getIndividual() {\n"
-				+ "		return individual;\n" + "	}");
+			builder.append("	public " + IndividualFactory.class.getSimpleName() + "<" + className
+					+ "Individual> getIndividualFactory() {\n" + "		return individualFactory;\n" + "	}\n" + "\n"
+					+ "	public final " + className + "Individual individual;");
+
+			builder.append("\n" + "	@Override\n" + "	public AbstractOBIEIndividual getIndividual() {\n"
+					+ "		return individual;\n" + "	}");
 
 		}
 
@@ -401,7 +403,7 @@ public class JavaClass implements Comparable<JavaClass> {
 		builder.append("\n");
 		builder.append("\n");
 
-		builder.append(generateToString());
+		builder.append(generateToString(isDatatypeProperty));
 		builder.append("\n\n");
 
 		builder.append("}");
@@ -409,13 +411,17 @@ public class JavaClass implements Comparable<JavaClass> {
 		return builder;
 	}
 
-	private StringBuilder generateToString() {
+	private StringBuilder generateToString(boolean isDatatypeProperty) {
 		StringBuilder toString = new StringBuilder();
 
 		toString.append("@Override");
 		toString.append("\npublic " + String.class.getSimpleName() + " toString(){\n");
 		toString.append("return \"");
 		toString.append(JavaClassNamingTools.normalizeClassName(className) + " [");
+
+		if (!isDatatypeProperty) {
+			toString.append("individual=\"+individual+\",");
+		}
 
 		List<JavaField> fs = new ArrayList<>(this.fields);
 		Collections.sort(fs);
