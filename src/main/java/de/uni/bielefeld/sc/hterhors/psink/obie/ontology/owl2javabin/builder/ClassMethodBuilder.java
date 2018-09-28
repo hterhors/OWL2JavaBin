@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.apache.jena.rdf.model.Model;
 
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.OntologyFieldNames;
+import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.OntologyInitializer;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.ECardinalityType;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologySlotData;
@@ -96,7 +97,7 @@ public class ClassMethodBuilder {
 
 	}
 
-	public JavaMethod generateEqualsMethod(Set<JavaField> fields, final String className) {
+	public JavaMethod generateEqualsMethod(Set<JavaField> fields, final String className, boolean isDatatype) {
 		StringBuilder methodBodyContent = new StringBuilder();
 		methodBodyContent.append("if (this == obj)\n");
 		methodBodyContent.append("return true;\n");
@@ -105,6 +106,15 @@ public class ClassMethodBuilder {
 		methodBodyContent.append("if (getClass() != obj.getClass())\n");
 		methodBodyContent.append("return false;\n");
 		methodBodyContent.append(className + " other = (" + className + ") obj;\n");
+
+		if (!isDatatype) {
+			methodBodyContent.append("if (" + OntologyInitializer.INDIVIDUAL_FIELD_NAME + " == null) {\n");
+			methodBodyContent.append("if (other." + OntologyInitializer.INDIVIDUAL_FIELD_NAME + "!= null)\n");
+			methodBodyContent.append("return false;\n");
+			methodBodyContent.append("} else if (!" + OntologyInitializer.INDIVIDUAL_FIELD_NAME + ".equals(other."
+					+ OntologyInitializer.INDIVIDUAL_FIELD_NAME + "))\n");
+			methodBodyContent.append("return false;\n");
+		}
 
 		for (JavaField field : fields) {
 
@@ -127,11 +137,15 @@ public class ClassMethodBuilder {
 				.setMethodType(EMethodType.ELSE).setReturnType(boolean.class.getSimpleName()).build();
 	}
 
-	public JavaMethod generateHashCodeMethod(Set<JavaField> fields) {
+	public JavaMethod generateHashCodeMethod(Set<JavaField> fields, boolean isDatatype) {
 
 		StringBuilder methodBodyContent = new StringBuilder();
 		methodBodyContent.append("final int prime = 31;\n");
 		methodBodyContent.append("int result = 1;\n");
+
+		if (!isDatatype)
+			methodBodyContent.append("result = prime * result + ((this." + OntologyInitializer.INDIVIDUAL_FIELD_NAME
+					+ " == null) ? 0 : this." + OntologyInitializer.INDIVIDUAL_FIELD_NAME + ".hashCode());\n");
 
 		for (JavaField field : fields) {
 

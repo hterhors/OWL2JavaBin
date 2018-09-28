@@ -293,8 +293,8 @@ public class OWLToJavaBinaries {
 				dataClass.isNamedIndividual, className));
 		methods.addAll(methodBuilder.generateOffAndOnSetGetter());
 		methods.addAll(methodBuilder.generateOffAndOnSetSetter());
-		methods.add(methodBuilder.generateHashCodeMethod(fields));
-		methods.add(methodBuilder.generateEqualsMethod(fields, className));
+		methods.add(methodBuilder.generateHashCodeMethod(fields, isDatatypeClass));
+		methods.add(methodBuilder.generateEqualsMethod(fields, className, isDatatypeClass));
 
 		JavaClass c = new JavaClass.Builder().setAccessType(EAccessType.PUBLIC).setAnnotations(annotations)
 				.setClassName(className).setConstructors(constructors).setDocumentation(dataClass.documentation)

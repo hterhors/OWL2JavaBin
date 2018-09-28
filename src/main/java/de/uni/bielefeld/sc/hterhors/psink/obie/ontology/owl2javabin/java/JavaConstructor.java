@@ -182,9 +182,14 @@ public class JavaConstructor {
 
 	private void buildCloneConstructor(List<JavaField> fs, StringBuilder builder) {
 		builder.append(this.className + " " + JavaClassNamingTools.getVariableName(className));
-		builder.append(
-				")throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,"
-						+ "NoSuchMethodException, SecurityException{\n");
+
+		builder.append(")");
+		if (!isDatatype) {
+			builder.append(
+					"throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,"
+							+ "NoSuchMethodException, SecurityException");
+		}
+		builder.append("{\n");
 		if (!isDatatype)
 			builder.append("this.individual = " + JavaClassNamingTools.getVariableName(className) + ".individual;\n");
 		for (int i = 0; i < fs.size(); i++) {
