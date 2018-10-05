@@ -1,10 +1,10 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java;
+package de.hterhors.obie.tools.owl2javabin.java;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAnnotation;
+import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
 
 public class JavaAnnotation {
 

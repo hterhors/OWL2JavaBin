@@ -1,11 +1,11 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder;
+package de.hterhors.obie.tools.owl2javabin.builder;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
+import de.hterhors.obie.tools.owl2javabin.java.JavaAnnotation;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAnnotation;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaAnnotation;
 
 public class AnnotationBuilder {
 

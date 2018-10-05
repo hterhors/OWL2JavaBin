@@ -1,4 +1,4 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin;
+package de.hterhors.obie.tools.owl2javabin;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +20,19 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 
+import de.hterhors.obie.tools.owl2javabin.builder.AnnotationBuilder;
+import de.hterhors.obie.tools.owl2javabin.builder.ClassMethodBuilder;
+import de.hterhors.obie.tools.owl2javabin.builder.ConstructorBuilder;
+import de.hterhors.obie.tools.owl2javabin.builder.FieldBuilder;
+import de.hterhors.obie.tools.owl2javabin.builder.InterfaceMethodBuilder;
+import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
+import de.hterhors.obie.tools.owl2javabin.enums.EField;
+import de.hterhors.obie.tools.owl2javabin.java.JavaAnnotation;
+import de.hterhors.obie.tools.owl2javabin.java.JavaClass;
+import de.hterhors.obie.tools.owl2javabin.java.JavaConstructor;
+import de.hterhors.obie.tools.owl2javabin.java.JavaField;
+import de.hterhors.obie.tools.owl2javabin.java.JavaInterface;
+import de.hterhors.obie.tools.owl2javabin.java.JavaMethod;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOBIEIndividual;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOntologyEnvironment;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.IndividualFactory;
@@ -37,19 +50,6 @@ import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IDatatyp
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IOBIEThing;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.OWLReader;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.AnnotationBuilder;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.ClassMethodBuilder;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.ConstructorBuilder;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.FieldBuilder;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder.InterfaceMethodBuilder;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EField;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaAnnotation;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaConstructor;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaField;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaInterface;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaMethod;
 
 /**
  * @author hterhors

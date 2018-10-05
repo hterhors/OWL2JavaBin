@@ -1,4 +1,4 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java;
+package de.hterhors.obie.tools.owl2javabin.java;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EMethodType;
+import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
+import de.hterhors.obie.tools.owl2javabin.enums.EMethodType;
 
 import java.util.Set;
 

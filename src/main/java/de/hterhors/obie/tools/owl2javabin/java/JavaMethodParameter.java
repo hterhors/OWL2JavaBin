@@ -1,4 +1,4 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java;
+package de.hterhors.obie.tools.owl2javabin.java;
 
 import java.util.ArrayList;
 import java.util.List;

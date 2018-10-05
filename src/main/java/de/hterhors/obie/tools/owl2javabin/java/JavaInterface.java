@@ -1,4 +1,4 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java;
+package de.hterhors.obie.tools.owl2javabin.java;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAnnotation;
+import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
+import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
 
 import java.util.Set;
 

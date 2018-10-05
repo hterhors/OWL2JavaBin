@@ -1,11 +1,11 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder;
+package de.hterhors.obie.tools.owl2javabin.builder;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaConstructor;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaField;
+import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
+import de.hterhors.obie.tools.owl2javabin.java.JavaConstructor;
+import de.hterhors.obie.tools.owl2javabin.java.JavaField;
 
 public class ConstructorBuilder {
 

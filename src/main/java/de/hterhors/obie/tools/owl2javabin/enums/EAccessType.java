@@ -1,4 +1,4 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums;
+package de.hterhors.obie.tools.owl2javabin.enums;
 
 public enum EAccessType {
 

@@ -1,4 +1,4 @@
-package de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.builder;
+package de.hterhors.obie.tools.owl2javabin.builder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,21 +7,21 @@ import java.util.stream.Collectors;
 
 import org.apache.jena.rdf.model.Model;
 
+import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
+import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
+import de.hterhors.obie.tools.owl2javabin.enums.EField;
+import de.hterhors.obie.tools.owl2javabin.enums.EMethodType;
+import de.hterhors.obie.tools.owl2javabin.java.JavaField;
+import de.hterhors.obie.tools.owl2javabin.java.JavaMethod;
+import de.hterhors.obie.tools.owl2javabin.java.JavaMethodParameter;
+import de.hterhors.obie.tools.owl2javabin.java.JavaMethod.OntologyMethodBody;
+import de.hterhors.obie.tools.owl2javabin.java.JavaMethod.OntologyMethodBuilder;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.OntologyFieldNames;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.OntologyInitializer;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.ECardinalityType;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologySlotData;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAccessType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EAnnotation;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EField;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.enums.EMethodType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaField;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaMethod;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaMethodParameter;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaMethod.OntologyMethodBody;
-import de.uni.bielefeld.sc.hterhors.psink.obie.ontology.owl2javabin.java.JavaMethod.OntologyMethodBuilder;
 
 public class ClassMethodBuilder {
 
