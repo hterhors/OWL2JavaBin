@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import de.hterhors.obie.core.ontology.interfaces.IOBIEThing;
+import de.hterhors.obie.core.owlreader.ECardinalityType;
+import de.hterhors.obie.core.owlreader.container.OntologyClass;
+import de.hterhors.obie.core.owlreader.container.OntologySlotData;
+import de.hterhors.obie.core.tools.JavaClassNamingTools;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
 import de.hterhors.obie.tools.owl2javabin.enums.EMethodType;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethod;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethodParameter;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethod.OntologyMethodBody;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethod.OntologyMethodBuilder;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IOBIEThing;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.ECardinalityType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologySlotData;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
 
 public class InterfaceMethodBuilder {
 	final String ontologyThingName;

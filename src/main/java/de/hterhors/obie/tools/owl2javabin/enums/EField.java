@@ -1,7 +1,7 @@
 package de.hterhors.obie.tools.owl2javabin.enums;
 
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.OntologyFieldNames;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
+import de.hterhors.obie.core.ontology.OntologyFieldNames;
+import de.hterhors.obie.core.tools.JavaClassNamingTools;
 
 public enum EField {
 	RDF_MODEL_NAMESPACE(OntologyFieldNames.RDF_MODEL_NAMESPACE_FIELD_NAME),

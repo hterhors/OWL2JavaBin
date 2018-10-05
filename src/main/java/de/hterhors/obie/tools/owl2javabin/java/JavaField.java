@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import de.hterhors.obie.core.owlreader.ECardinalityType;
+import de.hterhors.obie.core.tools.JavaClassNamingTools;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
 import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.ECardinalityType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
 
 public class JavaField implements Comparable<JavaField> {
 

@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import de.hterhors.obie.core.ontology.AbstractOBIEIndividual;
+import de.hterhors.obie.core.ontology.IndividualFactory;
+import de.hterhors.obie.core.tools.JavaClassNamingTools;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
 import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
 import de.hterhors.obie.tools.owl2javabin.enums.EField;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOBIEIndividual;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.IndividualFactory;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
 
 public class JavaClass implements Comparable<JavaClass> {
 

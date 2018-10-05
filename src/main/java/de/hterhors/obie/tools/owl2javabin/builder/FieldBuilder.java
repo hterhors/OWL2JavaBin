@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.hterhors.obie.core.ontology.OntologyFieldNames;
+import de.hterhors.obie.core.ontology.interfaces.IOBIEThing;
+import de.hterhors.obie.core.owlreader.ECardinalityType;
+import de.hterhors.obie.core.owlreader.container.OntologyClass;
+import de.hterhors.obie.core.owlreader.container.OntologySlotData;
+import de.hterhors.obie.core.tools.JavaClassNamingTools;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
 import de.hterhors.obie.tools.owl2javabin.enums.EField;
 import de.hterhors.obie.tools.owl2javabin.java.JavaField;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.OntologyFieldNames;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IOBIEThing;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.ECardinalityType;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologySlotData;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.tools.JavaClassNamingTools;
 
 public class FieldBuilder {
 

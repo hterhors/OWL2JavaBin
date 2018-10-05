@@ -3,9 +3,9 @@ package de.hterhors.obie.tools.owl2javabin.builder;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import de.hterhors.obie.core.owlreader.container.OntologyClass;
 import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
 import de.hterhors.obie.tools.owl2javabin.java.JavaAnnotation;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
 
 public class AnnotationBuilder {
 

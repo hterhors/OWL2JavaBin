@@ -20,6 +20,23 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 
+import de.hterhors.obie.core.ontology.AbstractOBIEIndividual;
+import de.hterhors.obie.core.ontology.AbstractOntologyEnvironment;
+import de.hterhors.obie.core.ontology.IndividualFactory;
+import de.hterhors.obie.core.ontology.annotations.AssignableSubClasses;
+import de.hterhors.obie.core.ontology.annotations.AssignableSubInterfaces;
+import de.hterhors.obie.core.ontology.annotations.DatatypeProperty;
+import de.hterhors.obie.core.ontology.annotations.DirectInterface;
+import de.hterhors.obie.core.ontology.annotations.DirectSiblings;
+import de.hterhors.obie.core.ontology.annotations.ImplementationClass;
+import de.hterhors.obie.core.ontology.annotations.OntologyModelContent;
+import de.hterhors.obie.core.ontology.annotations.RelationTypeCollection;
+import de.hterhors.obie.core.ontology.annotations.SuperRootClasses;
+import de.hterhors.obie.core.ontology.annotations.TextMention;
+import de.hterhors.obie.core.ontology.interfaces.IDatatype;
+import de.hterhors.obie.core.ontology.interfaces.IOBIEThing;
+import de.hterhors.obie.core.owlreader.OWLReader;
+import de.hterhors.obie.core.owlreader.container.OntologyClass;
 import de.hterhors.obie.tools.owl2javabin.builder.AnnotationBuilder;
 import de.hterhors.obie.tools.owl2javabin.builder.ClassMethodBuilder;
 import de.hterhors.obie.tools.owl2javabin.builder.ConstructorBuilder;
@@ -33,23 +50,6 @@ import de.hterhors.obie.tools.owl2javabin.java.JavaConstructor;
 import de.hterhors.obie.tools.owl2javabin.java.JavaField;
 import de.hterhors.obie.tools.owl2javabin.java.JavaInterface;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethod;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOBIEIndividual;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.AbstractOntologyEnvironment;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.IndividualFactory;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.AssignableSubClasses;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.AssignableSubInterfaces;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DatatypeProperty;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectInterface;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectSiblings;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.ImplementationClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.OntologyModelContent;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.RelationTypeCollection;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.SuperRootClasses;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.TextMention;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IDatatype;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.interfaces.IOBIEThing;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.OWLReader;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.owlreader.container.OntologyClass;
 
 /**
  * @author hterhors

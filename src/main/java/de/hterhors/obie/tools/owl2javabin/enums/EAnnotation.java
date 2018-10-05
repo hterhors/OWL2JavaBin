@@ -2,15 +2,15 @@ package de.hterhors.obie.tools.owl2javabin.enums;
 
 import org.apache.jena.ontology.DatatypeProperty;
 
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.AssignableSubClasses;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.AssignableSubInterfaces;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectInterface;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectSiblings;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.ImplementationClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.OntologyModelContent;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.RelationTypeCollection;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.SuperRootClasses;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.TextMention;
+import de.hterhors.obie.core.ontology.annotations.AssignableSubClasses;
+import de.hterhors.obie.core.ontology.annotations.AssignableSubInterfaces;
+import de.hterhors.obie.core.ontology.annotations.DirectInterface;
+import de.hterhors.obie.core.ontology.annotations.DirectSiblings;
+import de.hterhors.obie.core.ontology.annotations.ImplementationClass;
+import de.hterhors.obie.core.ontology.annotations.OntologyModelContent;
+import de.hterhors.obie.core.ontology.annotations.RelationTypeCollection;
+import de.hterhors.obie.core.ontology.annotations.SuperRootClasses;
+import de.hterhors.obie.core.ontology.annotations.TextMention;
 
 public enum EAnnotation {
 	OVERRIDE(Override.class.getSimpleName()), DIRECT_INTERFACE(DirectInterface.class.getSimpleName()),
