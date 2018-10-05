@@ -7,7 +7,6 @@ import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.Assigna
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectInterface;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectSiblings;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.ImplementationClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.NamedIndividual;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.OntologyModelContent;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.RelationTypeCollection;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.SuperRootClasses;
@@ -22,8 +21,7 @@ public enum EAnnotation {
 	ONTOLOGY_MODEL_CONTENT_ANNOTATION_NAME(OntologyModelContent.class.getSimpleName()),
 	MENTION_ANNOTATION_NAME(TextMention.class.getSimpleName()),
 	COLLECTION_RELATION_ANNOTATION_NAME(RelationTypeCollection.class.getSimpleName()),
-	DATA_TYPE_ANNOTATION(DatatypeProperty.class.getSimpleName()),
-	NAMED_INDIVIDUAL(NamedIndividual.class.getSimpleName());
+	DATA_TYPE_ANNOTATION(DatatypeProperty.class.getSimpleName());
 
 	final public String annotationClassName;
 

@@ -59,9 +59,6 @@ public class AnnotationBuilder {
 				.setParameter(superRootClasses.stream().map(c -> c.javaClassName).collect(Collectors.toSet())).build();
 	}
 
-	public JavaAnnotation buildNamedIndividualAnnotation() {
-		return new JavaAnnotation.Builder().setAnnotation(EAnnotation.NAMED_INDIVIDUAL).build();
-	}
 
 	public JavaAnnotation buildDirectInterfaceAnnotation(OntologyClass dataClass) {
 		return new JavaAnnotation.Builder().setAnnotation(EAnnotation.DIRECT_INTERFACE)

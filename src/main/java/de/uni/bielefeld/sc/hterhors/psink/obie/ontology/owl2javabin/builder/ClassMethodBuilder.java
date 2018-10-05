@@ -526,8 +526,12 @@ public class ClassMethodBuilder {
 	private void addLiteralToModel(final String resourceIDPrefix, StringBuilder getModel, final String variableName,
 			final String ontologyPropertyName) {
 
-		getModel.append("if(!" + variableName + ".getClass().isAnnotationPresent("
-				+ EAnnotation.NAMED_INDIVIDUAL.annotationClassName + ".class))");
+		/*
+		 * TODO: Check if this works without checking for named individuals
+		 */
+//		getModel.append("if(!" + variableName + ".getClass().isAnnotationPresent("
+//				+ EAnnotation.NAMED_INDIVIDUAL.annotationClassName + ".class))");
+	
 		getModel.append("model.add(" + variableName + ".getRDFModel(" + resourceIDPrefix + "));\n");
 
 		getModel.append("model.add(group, " + "model.createProperty(" + "\"" + ontologyPropertyName + "\"),"
@@ -546,8 +550,11 @@ public class ClassMethodBuilder {
 	private void addResourceToModel(final String resourceIDPrefix, StringBuilder getModel, final String variableName,
 			final String ontologyPropertyName) {
 
-		getModel.append("if(!" + variableName + ".getClass().isAnnotationPresent("
-				+ EAnnotation.NAMED_INDIVIDUAL.annotationClassName + ".class))");
+		/*
+		 * TODO: Check if this works without checking for named individuals
+		 */
+//		getModel.append("if(!" + variableName + ".getClass().isAnnotationPresent("
+//				+ EAnnotation.NAMED_INDIVIDUAL.annotationClassName + ".class))");
 		getModel.append("model.add(" + variableName + ".getRDFModel(" + resourceIDPrefix + "));\n");
 
 		getModel.append("model.add(group, " + "model.createProperty(" + "\"" + ontologyPropertyName + "\"),"

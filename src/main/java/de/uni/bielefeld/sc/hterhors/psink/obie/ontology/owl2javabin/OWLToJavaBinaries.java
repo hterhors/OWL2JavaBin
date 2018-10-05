@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -30,7 +29,6 @@ import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.Datatyp
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectInterface;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.DirectSiblings;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.ImplementationClass;
-import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.NamedIndividual;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.OntologyModelContent;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.RelationTypeCollection;
 import de.uni.bielefeld.sc.hterhors.psink.obie.core.ontology.annotations.SuperRootClasses;
@@ -137,7 +135,6 @@ public class OWLToJavaBinaries {
 		imports.add(DirectInterface.class.getTypeName());
 		imports.add(DirectSiblings.class.getTypeName());
 		imports.add(ImplementationClass.class.getTypeName());
-		imports.add(NamedIndividual.class.getTypeName());
 		imports.add(OntologyModelContent.class.getTypeName());
 		imports.add(RelationTypeCollection.class.getTypeName());
 		imports.add(SuperRootClasses.class.getTypeName());
@@ -193,8 +190,8 @@ public class OWLToJavaBinaries {
 		Set<JavaConstructor> constructors = new HashSet<>();
 		Set<JavaAnnotation> annotations = new HashSet<>();
 
-		if (dataClass.isNamedIndividual)
-			annotations.add(annotationBuilder.buildNamedIndividualAnnotation());
+//		if (dataClass.isNamedIndividual)
+//			annotations.add(annotationBuilder.buildNamedIndividualAnnotation());
 
 		boolean isDatatypeClass = dataClass.isDataType || isSubClassOfRootClass(QUDT_QUANTITY, dataClass);
 
@@ -232,7 +229,6 @@ public class OWLToJavaBinaries {
 		imports.add(DirectInterface.class.getTypeName());
 		imports.add(DirectSiblings.class.getTypeName());
 		imports.add(ImplementationClass.class.getTypeName());
-		imports.add(NamedIndividual.class.getTypeName());
 		imports.add(OntologyModelContent.class.getTypeName());
 		imports.add(RelationTypeCollection.class.getTypeName());
 		imports.add(SuperRootClasses.class.getTypeName());
@@ -359,7 +355,6 @@ public class OWLToJavaBinaries {
 		imports.add(DirectInterface.class.getTypeName());
 		imports.add(DirectSiblings.class.getTypeName());
 		imports.add(ImplementationClass.class.getTypeName());
-		imports.add(NamedIndividual.class.getTypeName());
 		imports.add(OntologyModelContent.class.getTypeName());
 		imports.add(RelationTypeCollection.class.getTypeName());
 		imports.add(SuperRootClasses.class.getTypeName());
