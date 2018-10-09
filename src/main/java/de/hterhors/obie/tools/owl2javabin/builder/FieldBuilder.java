@@ -100,13 +100,20 @@ public class FieldBuilder {
 								.setOntologyName(JavaClassNamingTools.combineRelationWithClassNameAsClassName(
 										relation.javaClassPropertyName, range.javaClassName))
 								.setRelationType(cardinalityType).setTypeName(range.javaInterfaceName);
+						if (range.isDataType) {
+							f.setDatatypeName(range.javaClassName);
+						}
 					} else {
 						f = new JavaField(true).setAccessType(EAccessType.PRIVATE)
 								.setOntologyName(JavaClassNamingTools.combineRelationWithClassNameAsPluralClassName(
 										relation.javaClassPropertyName, range.javaClassName))
 								.setRelationType(cardinalityType).setTypeName("List<>")
-								.setInnerTypeName(range.javaInterfaceName).setInitialization("new ArrayList<>()")
-								.addAnnotation(annotationBuilder.buildOneToManyAnnotation());
+								.setInitialization("new ArrayList<>()")
+								.addAnnotation(annotationBuilder.buildOneToManyAnnotation())
+								.setInnerTypeName(range.javaInterfaceName);
+						if (!range.isDataType) {
+							f.setDatatypeName(range.javaClassName);
+						}
 					}
 					String ontologyName = relation.namespace + relation.ontologyPropertyName;
 					f.addAnnotation(annotationBuilder.buildOntologyModelContentAnnotation(ontologyName));

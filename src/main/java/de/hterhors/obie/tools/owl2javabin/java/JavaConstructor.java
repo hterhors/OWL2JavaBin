@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.hterhors.obie.core.tools.JavaClassNamingTools;
+import de.hterhors.obie.tools.owl2javabin.builder.AnnotationBuilder;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
 import de.hterhors.obie.tools.owl2javabin.enums.EField;
 
@@ -181,7 +182,10 @@ public class JavaConstructor {
 	}
 
 	private void buildCloneConstructor(List<JavaField> fs, StringBuilder builder) {
-		builder.append(this.className + " " + JavaClassNamingTools.getVariableName(className));
+
+		final String parameterName = JavaClassNamingTools.getVariableName(className);
+
+		builder.append(this.className + " " + parameterName);
 
 		builder.append(")");
 		if (!isDatatype) {
@@ -191,49 +195,45 @@ public class JavaConstructor {
 		}
 		builder.append("{\n");
 		if (!isDatatype)
-			builder.append("this.individual = " + JavaClassNamingTools.getVariableName(className) + ".individual;\n");
+			builder.append("this.individual = " + parameterName + ".individual;\n");
 		for (int i = 0; i < fs.size(); i++) {
+
+			final String methodName = JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName());
 			if (fs.get(i).getTypeName().equals("Integer") || fs.get(i).getTypeName().equals("String")
 					|| fs.get(i).getTypeName().equals("String")) {
 				builder.append("this.");
 				builder.append(fs.get(i).getClassVariableName());
 				builder.append(" = ");
-				builder.append(JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName()) + "()");
+				builder.append(parameterName + ".get" + methodName + "()");
 				builder.append(";");
 			} else if (fs.get(i).isCollection()) {
-				builder.append("for (int j = 0; j < " + JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName())
-						+ "().size(); j++) {");
-				builder.append("if(" + JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName())
-						+ "().get(j)!=null){");
-				builder.append(fs.get(i).getClassVariableName() + ".add(");
-				builder.append(JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName())
-						+ "().get(j).getClass().getDeclaredConstructor("
-						+ JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName())
-						+ "().get(j).getClass()).newInstance(" + JavaClassNamingTools.getVariableName(className)
-						+ ".get" + JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName())
-						+ "().get(j))");
-				builder.append(");");
-				builder.append("} else{" + fs.get(i).getClassVariableName() + ".add(null);}");
+				builder.append("for (int j = 0; j < " + parameterName + ".get" + methodName + "().size(); j++) {");
+
+				builder.append("if (" + parameterName + ".get" + methodName + "().get(j) != null) {");
+				builder.append(fs.get(i).getClassVariableName() + ".add((" + fs.get(i).getInnerTypeName()
+						+ ") IOBIEThing.getCloneConstructor(" + parameterName + ".get" + methodName
+						+ "().get(j).getClass())");
+				builder.append(".newInstance(" + parameterName + ".get" + methodName + "().get(j)));");
+				builder.append("} else {");
+				builder.append(fs.get(i).getClassVariableName() + ".add(null);");
 				builder.append("}");
 
-			} else {
-				builder.append("if(" + JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName()) + "()!=null)");
+				builder.append("}");
+
+			} else if (!fs.get(i).getAnnotations()
+					.contains(new AnnotationBuilder().buildDataTypePropertyValueAnnotation())) {
+				builder.append("if(" + parameterName + ".get" + methodName + "()!=null)");
 				builder.append("this.");
 				builder.append(fs.get(i).getClassVariableName());
 				builder.append(" = ");
-				builder.append(JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName())
-						+ "().getClass().getDeclaredConstructor(" + JavaClassNamingTools.getVariableName(className)
-						+ ".get" + JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName())
-						+ "().getClass()).newInstance(" + JavaClassNamingTools.getVariableName(className) + ".get"
-						+ JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName()) + "())");
-				builder.append(";");
+
+				builder.append("(" + fs.get(i).getTypeName() + ") IOBIEThing");
+				builder.append(".getCloneConstructor(" + parameterName + ".get" + methodName + "().getClass())");
+				builder.append("	.newInstance(" + parameterName + ".get" + methodName + "());");
+			} else {
+				builder.append("if(" + parameterName + ".get" + methodName + "()!=null)");
+				builder.append("this." + fs.get(i).getClassVariableName() + " = new " + fs.get(i).getDatatypeName()
+						+ "((" + fs.get(i).getDatatypeName() + ")" + parameterName + ".get" + methodName + "());");
 			}
 
 			builder.append("\n");

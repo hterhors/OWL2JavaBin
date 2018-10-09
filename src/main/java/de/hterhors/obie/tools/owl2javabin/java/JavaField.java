@@ -13,6 +13,8 @@ import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
 
 public class JavaField implements Comparable<JavaField> {
 
+	private String datatypeName = null;
+
 	private String typeName;
 	private boolean hasInnerType = false;
 	private String innerTypeName;
@@ -104,6 +106,11 @@ public class JavaField implements Comparable<JavaField> {
 		return this;
 	}
 
+	public JavaField setDatatypeName(String datatypeName) {
+		this.datatypeName = datatypeName;
+		return this;
+	}
+
 	public JavaField setInnerTypeName(String innerTypeName) {
 		this.hasInnerType = true;
 		this.innerTypeName = innerTypeName;
@@ -148,6 +155,10 @@ public class JavaField implements Comparable<JavaField> {
 
 	public String getTypeName() {
 		return typeName;
+	}
+
+	public String getDatatypeName() {
+		return datatypeName;
 	}
 
 	public String getInnerTypeName() {
@@ -314,5 +325,4 @@ public class JavaField implements Comparable<JavaField> {
 	public int compareTo(JavaField o) {
 		return this.getClassVariableName().compareTo(o.getClassVariableName());
 	}
-
 }
