@@ -57,11 +57,12 @@ public class FieldBuilder {
 				.setInitialization(serializeVersion + "L");
 	}
 
-	public JavaField generateAnnotationIDField() {
-		return new JavaField().setAccessType(EAccessType.PUBLIC)
-				.setOntologyName(EField.ANNOTATION_ID_FIELD.variableName).setFinal(true)
-				.setRelationType(ECardinalityType.SINGLE).setTypeName(String.class.getSimpleName());
-	}
+//	@Deprecated
+//	public JavaField generateAnnotationIDField() {
+//		return new JavaField().setAccessType(EAccessType.PUBLIC)
+//				.setOntologyName(EField.ANNOTATION_ID_FIELD.variableName).setFinal(true)
+//				.setRelationType(ECardinalityType.SINGLE).setTypeName(String.class.getSimpleName());
+//	}
 
 	public JavaField generateMentionField(final OntologyClass className) {
 		return new JavaField().setAccessType(EAccessType.PRIVATE)

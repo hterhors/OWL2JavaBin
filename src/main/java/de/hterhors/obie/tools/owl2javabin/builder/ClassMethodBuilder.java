@@ -213,13 +213,14 @@ public class ClassMethodBuilder {
 
 	}
 
-	public JavaMethod generateAnnotationIDGetter() {
-		return new OntologyMethodBuilder().setAccessType(EAccessType.PUBLIC)
-				.addAnnotation(annotationBuilder.buildOverrideAnnotation())
-				.setMethodBody(new OntologyMethodBody("return " + EField.ANNOTATION_ID_FIELD.variableName + ";"))
-				.setMethodName("get" + EField.ANNOTATION_ID_FIELD.methodName).setMethodType(EMethodType.GETTER)
-				.setReturnType(String.class.getSimpleName()).build();
-	}
+//	@Deprecated
+//	public JavaMethod generateAnnotationIDGetter() {
+//		return new OntologyMethodBuilder().setAccessType(EAccessType.PUBLIC)
+//				.addAnnotation(annotationBuilder.buildOverrideAnnotation())
+//				.setMethodBody(new OntologyMethodBody("return " + EField.ANNOTATION_ID_FIELD.variableName + ";"))
+//				.setMethodName("get" + EField.ANNOTATION_ID_FIELD.methodName).setMethodType(EMethodType.GETTER)
+//				.setReturnType(String.class.getSimpleName()).build();
+//	}
 
 	public JavaMethod generateMentionGetter() {
 		return new OntologyMethodBuilder().setAccessType(EAccessType.PUBLIC)
