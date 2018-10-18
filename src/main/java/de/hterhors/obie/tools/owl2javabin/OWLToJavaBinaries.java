@@ -145,7 +145,7 @@ public class OWLToJavaBinaries {
 		imports.add(AbstractOBIEIndividual.class.getTypeName());
 
 		methods.add(JavaMethod.methods.get("get" + EField.ONTOLOGY_NAME.methodName).getInterfaceForMethod());
-		methods.add(JavaMethod.methods.get("get" + EField.ANNOTATION_ID_FIELD.methodName).getInterfaceForMethod());
+//		methods.add(JavaMethod.methods.get("get" + EField.ANNOTATION_ID_FIELD.methodName).getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("getRDFModel").getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("isEmpty").getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("get" + EField.TEXT_MENTION.methodName).getInterfaceForMethod());
@@ -262,7 +262,8 @@ public class OWLToJavaBinaries {
 		if (isDatatypeClass)
 			fields.add(fieldBuilder.generateDatatypePropteryValueField());
 
-		fields.add(fieldBuilder.generateAnnotationIDField());
+//		fields.add(fieldBuilder.generateAnnotationIDField());
+
 		fields.add(fieldBuilder.generateJavaSerializable(String.valueOf(this.environment.getOntologyVersion())));
 		fields.add(fieldBuilder.generateMentionField(dataClass));
 		fields.add(fieldBuilder.generateResourceFactoryField(dataClass.javaClassName));
@@ -280,7 +281,7 @@ public class OWLToJavaBinaries {
 			methods.add(methodBuilder.generateValueGetter());
 
 		methods.add(methodBuilder.generateOntologyNameGetter());
-		methods.add(methodBuilder.generateAnnotationIDGetter());
+//		methods.add(methodBuilder.generateAnnotationIDGetter());
 		methods.add(methodBuilder.generateMentionGetter());
 		methods.add(methodBuilder.generateGetRDFModelMethod(this.environment.getOntologyThingClassSimpleName(), fields,
 				className, dataClass.isDataType));
