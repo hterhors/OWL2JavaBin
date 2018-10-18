@@ -45,8 +45,10 @@ public class AnnotationBuilder {
 	}
 
 	public JavaAnnotation buildDirectSiblingClassesAnnotation(Set<OntologyClass> directSiblings) {
-		return new JavaAnnotation.Builder().setAnnotation(EAnnotation.DIRECT_SIBLINGS)
-				.setParameter(directSiblings.stream().map(sc -> sc.javaClassName).collect(Collectors.toSet())).build();
+		return new JavaAnnotation.Builder()
+				.setAnnotation(EAnnotation.DIRECT_SIBLINGS).setParameter(directSiblings.stream()
+						.filter(sc -> !sc.isNamedIndividual).map(sc -> sc.javaClassName).collect(Collectors.toSet()))
+				.build();
 	}
 
 	public JavaAnnotation buildClassImplAnnotation(OntologyClass implementationClassName) {
@@ -58,7 +60,6 @@ public class AnnotationBuilder {
 		return new JavaAnnotation.Builder().setAnnotation(EAnnotation.SUPER_ROOT_CLASSES)
 				.setParameter(superRootClasses.stream().map(c -> c.javaClassName).collect(Collectors.toSet())).build();
 	}
-
 
 	public JavaAnnotation buildDirectInterfaceAnnotation(OntologyClass dataClass) {
 		return new JavaAnnotation.Builder().setAnnotation(EAnnotation.DIRECT_INTERFACE)
