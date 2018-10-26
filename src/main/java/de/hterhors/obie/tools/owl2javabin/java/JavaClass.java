@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import de.hterhors.obie.core.ontology.AbstractOBIEIndividual;
+import de.hterhors.obie.core.ontology.AbstractIndividual;
 import de.hterhors.obie.core.ontology.IndividualFactory;
 import de.hterhors.obie.core.tools.JavaClassNamingTools;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
@@ -349,11 +349,11 @@ public class JavaClass implements Comparable<JavaClass> {
 
 			builder.append("final public static " + IndividualFactory.class.getSimpleName() + "<" + className
 					+ "Individual> individualFactory = new " + IndividualFactory.class.getSimpleName() + "<>();\n");
-			builder.append("final public static Class<? extends " + AbstractOBIEIndividual.class.getSimpleName()
+			builder.append("final public static Class<? extends " + AbstractIndividual.class.getSimpleName()
 					+ "> individualClassType = " + className + "Individual.class;\n");
 
 			builder.append(
-					"static class " + className + "Individual extends " + AbstractOBIEIndividual.class.getSimpleName()
+					"static class " + className + "Individual extends " + AbstractIndividual.class.getSimpleName()
 							+ " {\n" + "\n" + "" + "	private static final long serialVersionUID = 1L;"
 							+ "		public " + className + "Individual(String namespace, String name) {\n"
 							+ "			super(namespace, name);\n" + "		}\n" + "\n" + "		@Override\n"
@@ -365,8 +365,8 @@ public class JavaClass implements Comparable<JavaClass> {
 					+ "Individual> getIndividualFactory() {\n" + "		return individualFactory;\n" + "	}\n" + "\n"
 					+ "	public final " + className + "Individual individual;");
 
-			builder.append("\n" + "	@Override\n" + "	public AbstractOBIEIndividual getIndividual() {\n"
-					+ "		return individual;\n" + "	}");
+			builder.append("\n" + "	@Override\n" + "	public " + AbstractIndividual.class.getSimpleName()
+					+ " getIndividual() {\n" + "		return individual;\n" + "	}");
 
 		}
 

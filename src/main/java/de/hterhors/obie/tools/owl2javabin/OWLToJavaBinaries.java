@@ -20,7 +20,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 
-import de.hterhors.obie.core.ontology.AbstractOBIEIndividual;
+import de.hterhors.obie.core.ontology.AbstractIndividual;
 import de.hterhors.obie.core.ontology.AbstractOntologyEnvironment;
 import de.hterhors.obie.core.ontology.IndividualFactory;
 import de.hterhors.obie.core.ontology.annotations.AssignableSubClasses;
@@ -142,7 +142,7 @@ public class OWLToJavaBinaries {
 		imports.add(Model.class.getTypeName());
 
 		imports.add(IndividualFactory.class.getTypeName());
-		imports.add(AbstractOBIEIndividual.class.getTypeName());
+		imports.add(AbstractIndividual.class.getTypeName());
 
 		methods.add(JavaMethod.methods.get("get" + EField.ONTOLOGY_NAME.methodName).getInterfaceForMethod());
 //		methods.add(JavaMethod.methods.get("get" + EField.ANNOTATION_ID_FIELD.methodName).getInterfaceForMethod());
@@ -236,7 +236,7 @@ public class OWLToJavaBinaries {
 		imports.add(IOBIEThing.class.getTypeName());
 		imports.add(Model.class.getTypeName());
 		imports.add(IndividualFactory.class.getTypeName());
-		imports.add(AbstractOBIEIndividual.class.getTypeName());
+		imports.add(AbstractIndividual.class.getTypeName());
 		imports.add(Resource.class.getTypeName());
 		imports.add(ModelFactory.class.getTypeName());
 		imports.add(HashMap.class.getTypeName());
@@ -347,7 +347,7 @@ public class OWLToJavaBinaries {
 		imports.add(Collectors.class.getTypeName());
 
 		imports.add(IndividualFactory.class.getTypeName());
-		imports.add(AbstractOBIEIndividual.class.getTypeName());
+		imports.add(AbstractIndividual.class.getTypeName());
 
 //		imports.add(IntStream.class.getTypeName());
 		imports.add(AssignableSubClasses.class.getTypeName());
@@ -464,13 +464,17 @@ public class OWLToJavaBinaries {
 		if (ontologyClass.superclasses.isEmpty()) {
 			superRootClasses.add(ontologyClass);
 		} else {
+			boolean add = true;
 			for (OntologyClass superClass : ontologyClass.superclasses) {
 
 				if (collectiveClasses.contains(superClass.fullyQualifiedOntolgyName))
 					continue;
 
+				add = false;
 				collectSuperRootClasses(superClass, superRootClasses);
 			}
+			if (add)
+				superRootClasses.add(ontologyClass);
 		}
 	}
 
