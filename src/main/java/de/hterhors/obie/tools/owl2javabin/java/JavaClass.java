@@ -11,6 +11,7 @@ import java.util.Set;
 
 import de.hterhors.obie.core.ontology.AbstractIndividual;
 import de.hterhors.obie.core.ontology.IndividualFactory;
+import de.hterhors.obie.core.ontology.InvestigationRestriction;
 import de.hterhors.obie.core.tools.JavaClassNamingTools;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
 import de.hterhors.obie.tools.owl2javabin.enums.EAnnotation;
@@ -368,6 +369,17 @@ public class JavaClass implements Comparable<JavaClass> {
 			builder.append("\n" + "	@Override\n" + "	public " + AbstractIndividual.class.getSimpleName()
 					+ " getIndividual() {\n" + "		return individual;\n" + "	}");
 
+			builder.append("\n" + "	@Override\n" + "	public " + InvestigationRestriction.class.getSimpleName()
+					+ " get" + InvestigationRestriction.class.getSimpleName() + "() {\n"
+					+ "		return investigationRestriction;\n" + "	}");
+
+			builder.append("\n" + "	@Override\n" + "	public " + className
+					+ " set" + InvestigationRestriction.class.getSimpleName() + "("+InvestigationRestriction.class.getSimpleName() +" investigationRestriction ) {\n"
+					+ "		this.investigationRestriction = investigationRestriction;\n return this;" + "	}");
+			
+			builder.append(
+					"public " + InvestigationRestriction.class.getSimpleName() + " investigationRestriction;");
+
 		}
 
 		List<JavaField> fs = new ArrayList<>(fields);
@@ -421,6 +433,7 @@ public class JavaClass implements Comparable<JavaClass> {
 
 		if (!isDatatypeProperty) {
 			toString.append("individual=\"+individual+\",");
+			toString.append("investigationRestriction=\"+investigationRestriction.summarize()+\",");
 		}
 
 		List<JavaField> fs = new ArrayList<>(this.fields);

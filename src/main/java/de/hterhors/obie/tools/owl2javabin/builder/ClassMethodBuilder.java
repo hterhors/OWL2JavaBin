@@ -114,6 +114,12 @@ public class ClassMethodBuilder {
 			methodBodyContent.append("} else if (!" + OntologyInitializer.INDIVIDUAL_FIELD_NAME + ".equals(other."
 					+ OntologyInitializer.INDIVIDUAL_FIELD_NAME + "))\n");
 			methodBodyContent.append("return false;\n");
+
+			methodBodyContent.append("if (investigationRestriction == null) {\n");
+			methodBodyContent.append("if (other.investigationRestriction!= null)\n");
+			methodBodyContent.append("return false;\n");
+			methodBodyContent.append("} else if (!investigationRestriction.equals(other.investigationRestriction))\n");
+			methodBodyContent.append("return false;\n");
 		}
 
 		for (JavaField field : fields) {
@@ -143,9 +149,13 @@ public class ClassMethodBuilder {
 		methodBodyContent.append("final int prime = 31;\n");
 		methodBodyContent.append("int result = 1;\n");
 
-		if (!isDatatype)
+		if (!isDatatype) {
+
 			methodBodyContent.append("result = prime * result + ((this." + OntologyInitializer.INDIVIDUAL_FIELD_NAME
 					+ " == null) ? 0 : this." + OntologyInitializer.INDIVIDUAL_FIELD_NAME + ".hashCode());\n");
+			methodBodyContent.append(
+					"result = prime * result + ((this.investigationRestriction == null) ? 0 : this.investigationRestriction.hashCode());\n");
+		}
 
 		for (JavaField field : fields) {
 
@@ -532,7 +542,7 @@ public class ClassMethodBuilder {
 		 */
 //		getModel.append("if(!" + variableName + ".getClass().isAnnotationPresent("
 //				+ EAnnotation.NAMED_INDIVIDUAL.annotationClassName + ".class))");
-	
+
 		getModel.append("model.add(" + variableName + ".getRDFModel(" + resourceIDPrefix + "));\n");
 
 		getModel.append("model.add(group, " + "model.createProperty(" + "\"" + ontologyPropertyName + "\"),"

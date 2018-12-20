@@ -23,6 +23,7 @@ import org.apache.jena.rdf.model.Resource;
 import de.hterhors.obie.core.ontology.AbstractIndividual;
 import de.hterhors.obie.core.ontology.AbstractOntologyEnvironment;
 import de.hterhors.obie.core.ontology.IndividualFactory;
+import de.hterhors.obie.core.ontology.InvestigationRestriction;
 import de.hterhors.obie.core.ontology.annotations.AssignableSubClasses;
 import de.hterhors.obie.core.ontology.annotations.AssignableSubInterfaces;
 import de.hterhors.obie.core.ontology.annotations.DatatypeProperty;
@@ -251,6 +252,7 @@ public class OWLToJavaBinaries {
 		imports.add(NoSuchMethodException.class.getTypeName());
 		imports.add(SecurityException.class.getTypeName());
 		imports.add(IDatatype.class.getTypeName());
+		imports.add(InvestigationRestriction.class.getTypeName());
 		implementations.add(dataClass.javaInterfaceName);
 
 		methods.addAll(methodBuilder.generateGetters(dataClass));
@@ -275,7 +277,7 @@ public class OWLToJavaBinaries {
 		constructors.add(constructorBuilder.cloneConstructor(className, fields, isDatatypeClass));
 
 		if (isDatatypeClass)
-			constructors.add(constructorBuilder.semanticValueConstructor(className, fields));
+			constructors.add(constructorBuilder.interpretedValueConstructor(className, fields));
 
 		if (isDatatypeClass)
 			methods.add(methodBuilder.generateValueGetter());

@@ -17,7 +17,7 @@ public class ConstructorBuilder {
 		return new JavaConstructor(initializeNull, false, accessType, className, finalFields, false, isDatatype);
 	}
 
-	public JavaConstructor semanticValueConstructor(String className, final Set<JavaField> fields) {
+	public JavaConstructor interpretedValueConstructor(String className, final Set<JavaField> fields) {
 		EAccessType accessType = EAccessType.PUBLIC;
 		Set<JavaField> finalFields = fields.stream().filter(f -> f.isFinal() && f.getInitialization() == null)
 				.collect(Collectors.toSet());

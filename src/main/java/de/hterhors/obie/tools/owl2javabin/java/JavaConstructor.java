@@ -112,8 +112,10 @@ public class JavaConstructor {
 		if (!buildCloneConstructor) {
 
 			if (!initializeNull) {
-				if (!isDatatype)
-					builder.append("String individualURI, ");
+				if (!isDatatype) {
+
+					builder.append("String individualURI, InvestigationRestriction investigationRestriction, ");
+				}
 
 				for (int i = 0; i < fs.size(); i++) {
 					builder.append(fs.get(i).getTypeName());
@@ -142,9 +144,12 @@ public class JavaConstructor {
 
 			builder.append("){\n");
 			if (!initializeNull) {
-				if (!isDatatype)
+				if (!isDatatype) {
 					builder.append("this.individual = \n" + "				" + className
 							+ ".individualFactory.getIndividualByURI(individualURI);\n");
+					builder.append(
+							"this.investigationRestriction = investigationRestriction==null?InvestigationRestriction.noRestrictionInstance:investigationRestriction;\n");
+				}
 
 				for (int i = 0; i < fs.size(); i++) {
 					builder.append("this.");
@@ -155,8 +160,10 @@ public class JavaConstructor {
 					builder.append("\n");
 				}
 			} else {
-				if (!isDatatype)
+				if (!isDatatype) {
 					builder.append("this.individual = null;\n");
+					builder.append("this.investigationRestriction = InvestigationRestriction.noRestrictionInstance;\n");
+				}
 				for (int i = 0; i < fs.size(); i++) {
 					builder.append("this.");
 					builder.append(fs.get(i).getClassVariableName());
@@ -194,8 +201,10 @@ public class JavaConstructor {
 							+ "NoSuchMethodException, SecurityException");
 		}
 		builder.append("{\n");
-		if (!isDatatype)
+		if (!isDatatype) {
 			builder.append("this.individual = " + parameterName + ".individual;\n");
+			builder.append("this.investigationRestriction = " + parameterName + ".investigationRestriction;\n");
+		}
 		for (int i = 0; i < fs.size(); i++) {
 
 			final String methodName = JavaClassNamingTools.normalizeClassName(fs.get(i).getClassVariableName());
