@@ -12,6 +12,7 @@ import de.hterhors.obie.core.owlreader.ECardinalityType;
 import de.hterhors.obie.core.owlreader.container.OntologyClass;
 import de.hterhors.obie.core.owlreader.container.OntologySlotData;
 import de.hterhors.obie.core.tools.JavaClassNamingTools;
+import de.hterhors.obie.tools.owl2javabin.OWLToJavaBinaries;
 import de.hterhors.obie.tools.owl2javabin.enums.EAccessType;
 import de.hterhors.obie.tools.owl2javabin.enums.EField;
 import de.hterhors.obie.tools.owl2javabin.java.JavaField;
@@ -101,7 +102,8 @@ public class FieldBuilder {
 								.setOntologyName(JavaClassNamingTools.combineRelationWithClassNameAsClassName(
 										relation.javaClassPropertyName, range.javaClassName))
 								.setRelationType(cardinalityType).setTypeName(range.javaInterfaceName);
-						if (range.isDataType) {
+						if (range.isDataType
+								|| OWLToJavaBinaries.isSubClassOfRootClass(OWLToJavaBinaries.QUDT_QUANTITY, range)) {
 							f.setDatatypeName(range.javaClassName);
 						}
 					} else {
@@ -112,14 +114,16 @@ public class FieldBuilder {
 								.setInitialization("new ArrayList<>()")
 								.addAnnotation(annotationBuilder.buildOneToManyAnnotation())
 								.setInnerTypeName(range.javaInterfaceName);
-						if (!range.isDataType) {
+						if (!range.isDataType
+								&& !OWLToJavaBinaries.isSubClassOfRootClass(OWLToJavaBinaries.QUDT_QUANTITY, range)) {
 							f.setDatatypeName(range.javaClassName);
 						}
 					}
 					String ontologyName = relation.namespace + relation.ontologyPropertyName;
 					f.addAnnotation(annotationBuilder.buildOntologyModelContentAnnotation(ontologyName));
 
-					if (range.isDataType) {
+					if (range.isDataType
+							|| OWLToJavaBinaries.isSubClassOfRootClass(OWLToJavaBinaries.QUDT_QUANTITY, range)) {
 						f.addAnnotation(annotationBuilder.buildDataTypePropertyValueAnnotation());
 						// f.addAnnotation(AnnotationBuilder.buildSingleValueLeafEntityAnnotation());
 					}

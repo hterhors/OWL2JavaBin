@@ -62,7 +62,7 @@ public class OWLToJavaBinaries {
 	/**
 	 * TODO: Remove somehow.
 	 */
-	final private static String QUDT_QUANTITY = "http://data.nasa.gov/qudt/owl/qudt#Quantity";
+	public final static String QUDT_QUANTITY = "http://data.nasa.gov/qudt/owl/qudt#Quantity";
 
 	private final AbstractOntologyEnvironment environment;
 	private final static String classPackageName = "classes";
@@ -199,6 +199,7 @@ public class OWLToJavaBinaries {
 		if (isDatatypeClass) {
 			annotations.add(annotationBuilder.buildDataTypePropertyValueAnnotation());
 		}
+
 		annotations.add(annotationBuilder.buildAssignableSubClassesAnnotation(
 				traverseSubclassesTopDown(dataClass, new HashSet<OntologyClass>())));
 
@@ -311,7 +312,7 @@ public class OWLToJavaBinaries {
 	 * @param potentialSubClass
 	 * @return true if so else false.
 	 */
-	private boolean isSubClassOfRootClass(final String rootClass, final OntologyClass potentialSubClass) {
+	public static boolean isSubClassOfRootClass(final String rootClass, final OntologyClass potentialSubClass) {
 
 		if (potentialSubClass.superclasses.isEmpty())
 			return false;
