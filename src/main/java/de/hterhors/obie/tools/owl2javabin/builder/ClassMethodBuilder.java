@@ -9,6 +9,7 @@ import org.apache.jena.rdf.model.Model;
 
 import de.hterhors.obie.core.ontology.OntologyFieldNames;
 import de.hterhors.obie.core.ontology.OntologyInitializer;
+import de.hterhors.obie.core.ontology.interfaces.IOBIEThing;
 import de.hterhors.obie.core.owlreader.ECardinalityType;
 import de.hterhors.obie.core.owlreader.container.OntologyClass;
 import de.hterhors.obie.core.owlreader.container.OntologySlotData;
@@ -19,9 +20,9 @@ import de.hterhors.obie.tools.owl2javabin.enums.EField;
 import de.hterhors.obie.tools.owl2javabin.enums.EMethodType;
 import de.hterhors.obie.tools.owl2javabin.java.JavaField;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethod;
-import de.hterhors.obie.tools.owl2javabin.java.JavaMethodParameter;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethod.OntologyMethodBody;
 import de.hterhors.obie.tools.owl2javabin.java.JavaMethod.OntologyMethodBuilder;
+import de.hterhors.obie.tools.owl2javabin.java.JavaMethodParameter;
 
 public class ClassMethodBuilder {
 
@@ -247,6 +248,13 @@ public class ClassMethodBuilder {
 				.setMethodBody(new OntologyMethodBody("return " + EField.ONTOLOGY_NAME.variableName + ";"))
 				.setMethodName("get" + EField.ONTOLOGY_NAME.methodName).setMethodType(EMethodType.GETTER)
 				.setReturnType(String.class.getSimpleName()).build();
+	}
+
+	public JavaMethod generateGetThisMethod() {
+		return new OntologyMethodBuilder().setAccessType(EAccessType.PUBLIC)
+				.addAnnotation(annotationBuilder.buildOverrideAnnotation())
+				.setMethodBody(new OntologyMethodBody("return this;")).setMethodName("getThis")
+				.setMethodType(EMethodType.ELSE).setReturnType(IOBIEThing.class.getSimpleName()).build();
 	}
 
 	public JavaMethod generateValueGetter() {

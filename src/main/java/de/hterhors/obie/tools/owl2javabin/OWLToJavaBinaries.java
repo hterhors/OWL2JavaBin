@@ -146,7 +146,6 @@ public class OWLToJavaBinaries {
 		imports.add(AbstractIndividual.class.getTypeName());
 
 		methods.add(JavaMethod.methods.get("get" + EField.ONTOLOGY_NAME.methodName).getInterfaceForMethod());
-//		methods.add(JavaMethod.methods.get("get" + EField.ANNOTATION_ID_FIELD.methodName).getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("getRDFModel").getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("isEmpty").getInterfaceForMethod());
 		methods.add(JavaMethod.methods.get("get" + EField.TEXT_MENTION.methodName).getInterfaceForMethod());
@@ -283,6 +282,7 @@ public class OWLToJavaBinaries {
 		if (isDatatypeClass)
 			methods.add(methodBuilder.generateValueGetter());
 
+		methods.add(methodBuilder.generateGetThisMethod());
 		methods.add(methodBuilder.generateOntologyNameGetter());
 //		methods.add(methodBuilder.generateAnnotationIDGetter());
 		methods.add(methodBuilder.generateMentionGetter());
